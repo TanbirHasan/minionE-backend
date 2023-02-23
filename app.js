@@ -6,7 +6,7 @@ const cors = require('cors');
 const connectDB = require('./db/connect');
 const ProductRoutes = require('./routes/products');
 const UserRoutes = require('./routes/users');
-
+const CategoriesRoutes = require('./routes/categories');
 
 // middleware
 app.use(express.json());
@@ -15,7 +15,7 @@ app.use(cors());
 // middleware to set router
 app.use('/products', ProductRoutes);
 app.use('/users', UserRoutes);
-
+app.use('/categories', CategoriesRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Hello I am live');
