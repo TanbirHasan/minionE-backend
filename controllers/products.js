@@ -34,7 +34,6 @@ const bestRatedProducts = async (req, res) => {
 	try {
 		const bestRated = await Product.find({}).sort({ ratings: -1 });
 		res.send(bestRated);
-		
 	} catch (error) {
 		console.log(error.message);
 	}
@@ -45,7 +44,13 @@ const paginatedProducts = async (req, res) => {
 		const page = parseInt(req.query.page);
 		const size = parseInt(req.query.size);
 
+		const sort = parseInt(req.query.sort);
+		console.log('sort', sort);
+		const bestRating = parseInt(req.query.bestRating);
+		console.log('bestRating', bestRating);
+
 		const products = await Product.find({})
+			.sort({ _id: sort, ratings: bestRating })
 			.skip(page * size)
 			.limit(size);
 		const count = await Product.estimatedDocumentCount();
@@ -60,7 +65,8 @@ const recentPaginatedProducts = async (req, res) => {
 		const page = parseInt(req.query.page);
 		const size = parseInt(req.query.size);
 
-		const products = await Product.find({}).sort({ _id: -1 })
+		const products = await Product.find({})
+			.sort({ _id: -1 })
 			.skip(page * size)
 			.limit(size);
 		const count = await Product.estimatedDocumentCount();
@@ -77,5 +83,5 @@ module.exports = {
 	paginatedProducts,
 	addProduct,
 	getRecentProducts,
-	recentPaginatedProducts
+	recentPaginatedProducts,
 };
