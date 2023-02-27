@@ -7,6 +7,7 @@ const connectDB = require('./db/connect');
 const ProductRoutes = require('./routes/products');
 const UserRoutes = require('./routes/users');
 const CategoriesRoutes = require('./routes/categories');
+const ReviewsRoutes = require('./routes/reviews');
 
 // middleware
 app.use(express.json());
@@ -16,6 +17,7 @@ app.use(cors());
 app.use('/products', ProductRoutes);
 app.use('/users', UserRoutes);
 app.use('/categories', CategoriesRoutes);
+app.use('/reviews', ReviewsRoutes);
 
 app.get('/', (req, res) => {
 	res.send('Hello I am live');
