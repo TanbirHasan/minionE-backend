@@ -5,9 +5,10 @@ const {
 	bestRatedProducts,
 	paginatedProducts,
 	addProduct,
-    getRecentProducts,
+	getRecentProducts,
 	recentPaginatedProducts,
 } = require('../controllers/products');
+const verifyToken = require('../middlewares/verifyToken');
 
 const productRoute = express.Router();
 
