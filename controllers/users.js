@@ -10,7 +10,7 @@ const addUser = async (req, res) => {
 		$set: user,
 	};
 	const result = await User.updateOne(filter, updatedDoc, options);
-    const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
+	const token = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '1d' });
 	res.send({ result, token });
 };
 
@@ -23,4 +23,14 @@ const getAllUsers = async (req, res) => {
 	}
 };
 
-module.exports = { addUser, getAllUsers };
+const getAdminUsers = async (req, res) => {
+	try {
+		const email = req.params.email;
+		const user = await User.findOne({ email: email });
+		res.send({ isAdmin: user?.role === 'admin' });
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+module.exports = { addUser, getAllUsers, getAdminUsers };
