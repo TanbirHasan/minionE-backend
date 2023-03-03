@@ -16,8 +16,14 @@ const addUser = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
 	try {
-		const users = await User.find({});
-		res.send(users);
+		const page = parseInt(req.query.page);
+		const size = parseInt(req.query.size);
+		const users = await User.find({})
+			.sort({ _id: -1 })
+			.skip(page * size)
+			.limit(size);
+		const count = await User.estimatedDocumentCount();
+		res.send({ users, count });
 	} catch (error) {
 		console.log(error.message);
 	}
@@ -33,4 +39,24 @@ const getAdminUsers = async (req, res) => {
 	}
 };
 
-module.exports = { addUser, getAllUsers, getAdminUsers };
+const deleteUser = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const result = await User.findByIdAndDelete(id);
+		res.send(result);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+const setActiveUserStatus = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const filter = { _id: id };
+		const update = { status: 'deactivated' };
+		const user = await User.findOneAndUpdate(id);
+		res.send(user);
+	} catch (error) {}
+};
+
+module.exports = { addUser, getAllUsers, getAdminUsers, deleteUser, setActiveUserStatus };

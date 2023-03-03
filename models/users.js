@@ -14,6 +14,10 @@ var UserSchema = new mongoose.Schema({
 		type: String,
 		default: ''
 	},
+	// status: {
+	// 	type: String,
+	// 	default: 'active'
+	// },
 });
 
 //Export the model
