@@ -5,16 +5,19 @@ var UserSchema = new mongoose.Schema({
 	name: {
 		type: String,
 		required: true,
-	
 	},
 	email: {
 		type: String,
 		required: true,
 	},
-	isAdmin: {
-		type: Boolean,
-		default: false,
+	role: {
+		type: String,
+		default: ''
 	},
+	// status: {
+	// 	type: String,
+	// 	default: 'active'
+	// },
 });
 
 //Export the model
