@@ -29,6 +29,22 @@ const getAllUsers = async (req, res) => {
 	}
 };
 
+//! All users except admin
+// const getAllUsersExceptAdmin = async (req, res) => {
+// 	try {
+// 		const page = parseInt(req.query.page);
+// 		const size = parseInt(req.query.size);
+// 		const users = await User.find({ role: '' })
+// 			.sort({ _id: -1 })
+// 			.skip(page * size)
+// 			.limit(size);
+// 		const count = await User.estimatedDocumentCount();
+// 		res.send({ users, count });
+// 	} catch (error) {
+// 		console.log(error.message);
+// 	}
+// };
+
 const getAdminUsers = async (req, res) => {
 	try {
 		const email = req.params.email;
@@ -59,4 +75,10 @@ const setActiveUserStatus = async (req, res) => {
 	} catch (error) {}
 };
 
-module.exports = { addUser, getAllUsers, getAdminUsers, deleteUser, setActiveUserStatus };
+module.exports = {
+	addUser,
+	getAllUsers,
+	getAdminUsers,
+	deleteUser,
+	setActiveUserStatus,
+};
