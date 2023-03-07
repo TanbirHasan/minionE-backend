@@ -7,6 +7,8 @@ const {
 	addProduct,
 	getRecentProducts,
 	recentPaginatedProducts,
+	updateProduct,
+	deleteProduct,
 } = require('../controllers/products');
 const verifyToken = require('../middlewares/verifyToken');
 
@@ -19,5 +21,7 @@ productRoute.route('/recent-paginated-products').get(recentPaginatedProducts);
 productRoute.route('/paginated-products').get(paginatedProducts);
 productRoute.route('/best-rated').get(bestRatedProducts);
 productRoute.route('/:id').get(getSingleProduct);
+productRoute.route('/:id').put(updateProduct);
+productRoute.route('/:id').delete(deleteProduct);
 
 module.exports = productRoute;

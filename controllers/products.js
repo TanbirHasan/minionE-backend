@@ -76,6 +76,32 @@ const recentPaginatedProducts = async (req, res) => {
 	}
 };
 
+const updateProduct = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const product = req.body;
+		const filter = Product.findById(id);
+		const options = { upsert: true };
+		const updatedDoc = {
+			$set: product,
+		};
+		const result = await Product.updateOne(filter, updatedDoc, options);
+		res.send(result);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
+const deleteProduct = async (req, res) => {
+	try {
+		const id = req.params.id;
+		const result = await Product.findByIdAndDelete(id);
+		res.send(result);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
 module.exports = {
 	getAllProducts,
 	getSingleProduct,
@@ -84,4 +110,6 @@ module.exports = {
 	addProduct,
 	getRecentProducts,
 	recentPaginatedProducts,
+	updateProduct,
+	deleteProduct,
 };
