@@ -1,4 +1,5 @@
 const Product = require('../models/products');
+const Category = require('../models/categories');
 
 const getAllProducts = async (req, res) => {
 	const products = await Product.find({});
@@ -76,6 +77,21 @@ const recentPaginatedProducts = async (req, res) => {
 	}
 };
 
+const getProductRelatedToCategories = async (req, res) => {
+	try {
+		const page = parseInt(req.query.page);
+		const size = parseInt(req.query.size);
+		const id = req.params.categoryId;
+		const products = await Product.find({ categoryId: id })
+			.skip(page * size)
+			.limit(size);
+			const count = await Product.estimatedDocumentCount();
+		res.send({products,count});
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
 const updateProduct = async (req, res) => {
 	try {
 		const id = req.params.id;
@@ -112,4 +128,5 @@ module.exports = {
 	recentPaginatedProducts,
 	updateProduct,
 	deleteProduct,
+	getProductRelatedToCategories,
 };
