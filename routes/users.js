@@ -10,7 +10,7 @@ const {
 const verifyToken = require('../middlewares/verifyToken');
 const router = express.Router();
 
-router.route('/').get(getAllUsers);
+router.route('/').get(verifyToken,getAllUsers);
 router.route('/non-admin').get(getAllUsersExceptAdmin);
 router.route('/:email').put(addUser);
 router.route('/:id').put(setActiveUserStatus);

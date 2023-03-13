@@ -17,7 +17,7 @@ const productRoute = express.Router();
 
 productRoute.route('/').get(getAllProducts);
 productRoute.route('/category/:categoryId').get(getProductRelatedToCategories);
-productRoute.route('/').post(addProduct);
+productRoute.route('/').post(verifyToken,addProduct);
 productRoute.route('/recent-products').get(getRecentProducts);
 productRoute.route('/recent-paginated-products').get(recentPaginatedProducts);
 productRoute.route('/paginated-products').get(paginatedProducts);

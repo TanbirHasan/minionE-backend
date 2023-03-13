@@ -52,6 +52,11 @@ const OrderSchema = new mongoose.Schema({
         required:true,
     },
    
+    totalPrice:{
+        type:Number,
+        required:true,
+    },
+   
     
 });
 

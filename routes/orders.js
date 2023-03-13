@@ -1,7 +1,10 @@
 const express = require('express');
-const { addOrdersInfo } = require('../controllers/orders');
+const { addOrdersInfo, getAllOrders, getOrdersForSingleUser } = require('../controllers/orders');
 const router = express.Router();
+const verifyToken = require('../middlewares/verifyToken');
 
-router.route('/').post(addOrdersInfo)
+router.route('/').get(verifyToken,getAllOrders);
+router.route('/:email').get(getOrdersForSingleUser);
+router.route('/').post(addOrdersInfo);
 
 module.exports = router;

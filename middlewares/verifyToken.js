@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken');
 const verifyToken = (req, res, next) => {
 	const authHeader = req.headers.authorization;
-	console.log(authHeader);
+	// console.log(authHeader);
 	if (!authHeader) {
-		res.status(401).send({ message: 'Invalid authorization ' });
+		res.status(401).send({ message: 'Invalid authorization. Login in order to get a token ' });
 	}
 
 	const token = authHeader.split(' ')[1];
