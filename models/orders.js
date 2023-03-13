@@ -51,10 +51,7 @@ const OrderSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    orderPlaced:{
-        type:Number,
-        required:true,
-    },
+   
     
 });
 

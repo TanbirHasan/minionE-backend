@@ -1,5 +1,6 @@
 const Product = require('../models/products');
 const Category = require('../models/categories');
+const { findById } = require('../models/products');
 
 const getAllProducts = async (req, res) => {
 	const products = await Product.find({});
@@ -25,7 +26,7 @@ const getSingleProduct = async (req, res) => {
 const getRecentProducts = async (req, res) => {
 	try {
 		const product = await Product.find({}).sort({ _id: -1 });
-		return res.send(product);
+		res.send(product);
 	} catch (error) {
 		console.log(error);
 	}
@@ -82,11 +83,11 @@ const getProductRelatedToCategories = async (req, res) => {
 		const page = parseInt(req.query.page);
 		const size = parseInt(req.query.size);
 		const id = req.params.categoryId;
-		const products = await Product.find({ categoryId: id })
+		const products = await Product.find({ categoryId:id })
 			.skip(page * size)
 			.limit(size);
-			const count = await Product.estimatedDocumentCount();
-		res.send({products,count});
+		const count = await Product.estimatedDocumentCount();
+		return res.send({ products, count });
 	} catch (error) {
 		console.log(error.message);
 	}
