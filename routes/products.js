@@ -9,12 +9,14 @@ const {
 	recentPaginatedProducts,
 	updateProduct,
 	deleteProduct,
+	getProductRelatedToCategories,
 } = require('../controllers/products');
 const verifyToken = require('../middlewares/verifyToken');
 
 const productRoute = express.Router();
 
 productRoute.route('/').get(getAllProducts);
+productRoute.route('/:categoryId').get(getProductRelatedToCategories);
 productRoute.route('/').post(addProduct);
 productRoute.route('/recent-products').get(getRecentProducts);
 productRoute.route('/recent-paginated-products').get(recentPaginatedProducts);
